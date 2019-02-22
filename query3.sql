@@ -3,12 +3,9 @@
 --  nearby country speaks nothing but that language.
 SELECT name FROM country
     WHERE code IN (
-        SELECT countrycode FROM countrylanguage
-            WHERE language IN 
-                (SELECT language FROM countrylanguage
-                    WHERE countrycode IN 
-                        (SELECT code FROM country
-                            WHERE region = 'Southern Europe'
-                            AND (population IN (SELECT MIN(population) FROM country WHERE region = 'Southern Europe'))))
-            AND percentage = 100
+        SELECT countrycode FROM countrylanguage WHERE language IN (SELECT language FROM countrylanguage
+        WHERE countrycode IN (SELECT code FROM country
+        WHERE region = 'Southern Europe'
+        AND (population IN (SELECT MIN(population) FROM country WHERE region = 'Southern Europe'))))
+        AND percentage = 100
     );
